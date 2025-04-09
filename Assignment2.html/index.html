@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment 2</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefaf6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background-color: #ddb892;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      font-size: 2em;
+      font-weight: bold;
+      color: #4e342e;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px 20px;
+    }
+    .card {
+      background: #fff8f1;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 260px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      color: #5d4037;
+      margin-bottom: 10px;
+    }
+    .card button, .nav-button {
+      background-color: #a97155;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .card button:hover, .nav-button:hover {
+      background-color: #85503f;
+    }
+    #boxModelDiv {
+      width: 200px;
+      height: 100px;
+      padding: 20px;
+      border: 5px solid black;
+      margin: 0 auto;
+      background-color: lightblue;
+      border-radius: 16px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      cursor: pointer;
+      list-style: circle;
+    }
+  </style>
+</head>
+<body>
+  <header>Assignment 2 - JavaScript Fundamentals</header>
+
+  <div class="container">
+    <!-- Part 1 -->
+    <div class="card">
+      <h3>1. Area Calculator</h3>
+      <p>Calculates area from user input with validation.</p>
+      <button onclick="calculateArea(5, 3)">Run Calculation</button>
+    </div>
+
+    <!-- Part 2 -->
+    <div class="card">
+      <h3>2. Event Handling</h3>
+      <p>Click button to change color and see alert.</p>
+      <button id="clickBtn">Click Me</button>
+    </div>
+
+    <!-- Part 3 -->
+    <div class="card">
+      <h3>3. DOM Manipulation</h3>
+      <p>Click items to randomize their content.</p>
+      <ul id="myList">
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+      </ul>
+    </div>
+
+    <!-- Part 4 -->
+    <div class="card">
+      <h3>4. CSS Box Model</h3>
+      <p>Click or hover to see style effects.</p>
+      <div id="boxModelDiv">Box Model Div</div>
+    </div>
+
+    <!-- Navigation to Page 2 -->
+    <div class="card">
+      <h3>Navigate to Page 2</h3>
+      <p>Click the button below to go to the second page.</p>
+      <a href="part2.html" class="nav-button">Go to Page 2</a>
+    </div>
+  </div>
+
+  <script>
+    function calculateArea(width, height) {
+      while (width <= 0 || height <= 0 || isNaN(width) || isNaN(height)) {
+        width = parseFloat(prompt("Enter a positive number for width:"));
+        height = parseFloat(prompt("Enter a positive number for height:"));
+      }
+      const area = width * height;
+      console.log("Area of rectangle:", area);
+      alert("Area: " + area);
+      return area;
+    }
+
+    function getRandomColor() {
+      const letters = "0123456789ABCDEF";
+      let color = "#";
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function getRandomString(length = 8) {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    document.getElementById("clickBtn").addEventListener("click", function () {
+      alert("Button clicked!");
+      this.style.backgroundColor = getRandomColor();
+    });
+
+    const ul = document.getElementById("myList");
+    const newLi = document.createElement("li");
+    newLi.textContent = "Fourth item";
+    ul.appendChild(newLi);
+
+    ul.querySelectorAll("li").forEach(li => {
+      li.addEventListener("click", function () {
+        this.textContent = getRandomString();
+        this.style.color = getRandomColor();
+      });
+    });
+
+    const boxDiv = document.getElementById("boxModelDiv");
+    boxDiv.addEventListener("click", function () {
+      this.style.backgroundColor = getRandomColor();
+    });
+    boxDiv.addEventListener("mouseover", function () {
+      this.style.borderColor = getRandomColor();
+    });
+    boxDiv.addEventListener("mouseout", function () {
+      this.style.borderColor = "black";
+    });
+  </script>
+</body>
+</html>
